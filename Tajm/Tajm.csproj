@@ -274,6 +274,7 @@
     <Content Include="Scripts\app\tags\worktask-dropdown.tag" />
     <Content Include="Scripts\app\tags\add-tasktime.tag" />
     <Content Include="Scripts\app\tags\current-tasks.tag" />
+    <Content Include="Scripts\app\tags\latest-tasks.tag" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\app\dataloader.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
