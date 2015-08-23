@@ -1,0 +1,38 @@
+﻿@model Tajm.Models.TaskTime
+
+@{
+    ViewBag.Title = "Home Page";
+}
+<div container>
+    <add-tasktime></add-tasktime>
+    <h3>Pågående</h3>
+    <current-tasks></current-tasks>
+    <h3>Senaste</h3>
+    
+</div>
+<div class="row">
+
+    <div class="col-md-12">
+
+
+        <table>
+            <thead>
+                <tr><th>Kund</th><th>Uppgift</th><th>Start</th><th>Stopp</th></tr>
+            </thead>
+            <tbody>
+                @foreach (Tajm.Models.TaskTime _tt in ViewBag.latestTasks)
+                {
+                    <tr>
+                        <td>@_tt.CustomerId</td>
+                        <td>@_tt.TaskId</td>
+                        <td>@_tt.Start</td>
+                        <td>@_tt.End</td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+
+    </div>
+
+</div>

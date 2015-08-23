@@ -1,0 +1,17 @@
+{
+  "name": "Tajm",
+  "version": "0.1.0",
+  "authors": [
+    "P-H Westman"
+  ],
+  "description": "Simple Time registration",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
