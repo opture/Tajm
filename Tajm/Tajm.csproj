@@ -268,6 +268,11 @@
     <Content Include="Scripts\app\store.js" />
     <Content Include="Scripts\app\tags\tags.js" />
     <Content Include="package.json" />
+    <Content Include="Scripts\moment-duration-format.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="_bower.json" />
     <Content Include="Scripts\app\tags\customer-dropdown.tag" />
     <Content Include="Scripts\app\tags\employee-dropdown.tag" />
@@ -275,6 +280,7 @@
     <Content Include="Scripts\app\tags\add-tasktime.tag" />
     <Content Include="Scripts\app\tags\current-tasks.tag" />
     <Content Include="Scripts\app\tags\latest-tasks.tag" />
+    <Content Include="Scripts\app\tags\tasktime-listitem.tag" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\app\dataloader.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

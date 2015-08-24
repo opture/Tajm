@@ -1,21 +1,11 @@
 ﻿<latest-tasks>
-    <table>
-        <tr>
-            <th>Kund</th>
-            <th>Person</th>
-            <th>Uppgift</th>
-            <th>Start</th>
-            <th>Slut</th>
-        </tr>
-        <tr each="{latestTasks}">
-            <td>{customerId}</td>
-            <td>{employeeId}</td>
-            <td>{taskId}</td>
-            <td>{start}</td>
-            <td>{end.substring(0,10)}</td>
-        </tr>
-    </table>
-    <script>
+  
+    <tasktime-listitem each="{latestTasks}" tasktime="{this}">
+    </tasktime-listitem>
+  
+
+
+  <script>
         var self = this;
         self.latestTasks = [];
         store.TaskTimes.on('collection_changed', function () {

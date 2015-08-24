@@ -13,6 +13,7 @@ using System.Web.Http.Description;
 using Tajm.DAL;
 using Tajm.Models;
 
+
 namespace Tajm.Controllers.API
 {
     public class TaskTimesController : ApiController
@@ -80,8 +81,11 @@ namespace Tajm.Controllers.API
 
         // POST: api/ApiTaskTimes
         [ResponseType(typeof(TaskTime))]
-        public async Task<IHttpActionResult> PostTaskTime(TaskTime taskTime)
+        public async Task<IHttpActionResult> PostTaskTime( TaskTime taskTime)
         {
+            taskTime.Customer = null;
+            taskTime.Employee = null;
+            taskTime.Task = null;
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

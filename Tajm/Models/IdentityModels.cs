@@ -21,7 +21,7 @@ namespace Tajm.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("TajmContext", throwIfV1Schema: false)
         {
         }
 

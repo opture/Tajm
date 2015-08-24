@@ -13,7 +13,7 @@
     <nav class="responsive-nav" id="js-responsive-nav">
         <ul class="responsive-nav__list">
             <li class="responsive-nav__item">
-                @Html.ActionLink("Hem", "Index", "Home",null, new { @class = "responsive-nav__link" })
+                @Html.ActionLink("Hem", "Index", "Home", null, new { @class = "responsive-nav__link" })
             </li>
             <li class="responsive-nav__item">
                 @Html.ActionLink("Kunder", "Index", "Customers", null, new { @class = "responsive-nav__link" })
@@ -22,7 +22,7 @@
                 @Html.ActionLink("Resurser", "Index", "Employees", null, new { @class = "responsive-nav__link" })
             </li>
             <li class="responsive-nav__item">
-                @Html.ActionLink("Uppgifter", "Index", "WorkTasks", null,new { @class = "responsive-nav__link" })
+                @Html.ActionLink("Uppgifter", "Index", "WorkTasks", null, new { @class = "responsive-nav__link" })
             </li>
         </ul>
     </nav>
@@ -37,17 +37,22 @@
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/riot/2.2.4/riot.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/riot/2.2.4/riot.js"></script>
+    <script src="~/Scripts/moment-with-locales.min.js"></script>
+    <script src="~/Scripts/moment-duration-format.js"></script>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/layoutscript")
     @RenderSection("scripts", required: false)
+
     <script src="~/Scripts/app/tags/tags.js"></script>
     <script src="~/Scripts/app/polyfills.js"></script>
     <script src="~/Scripts/app/models.js"></script>
     <script src="~/Scripts/app/store.js"></script>
     <script src="~/Scripts/app/dataloader.js"></script>
     <script>
+        moment.locale('sv');
         riot.mount('*')
     </script>
 </body>
 </html>
+

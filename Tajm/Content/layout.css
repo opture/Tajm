@@ -869,13 +869,13 @@
 @media only screen and (min-width: 360px) {
   body,
   html {
-    font-size: 18px;
+    /* font-size: 18px; */
   }
 }
 @media only screen and (min-width: 375px) {
   body,
   html {
-    font-size: 18px;
+    /* font-size: 18px; */
   }
 }
 
@@ -884,7 +884,7 @@
 @media only screen and (min-width: 480px) {
   body,
   html {
-    font-size: 20px;
+   /* font-size: 20px; */
   }
   [container] {
     max-width: 30rem;
@@ -925,7 +925,7 @@
 @media only screen and (min-width: 768px) {
   body,
   html {
-    font-size: 25px;
+   /* font-size: 25px; */
   }
   [container] {
     max-width: 48rem;
@@ -966,7 +966,7 @@
 @media only screen and (min-width: 992px) {
   body,
   html {
-    font-size: 33px;
+    /* font-size: 33px; */
   }
   [container] {
     max-width: 62rem;

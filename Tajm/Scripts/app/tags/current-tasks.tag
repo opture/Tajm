@@ -11,7 +11,7 @@
             <td>{customerId}</td>
             <td>{employeeId}</td>
             <td>{taskId}</td>
-            <td>{start}</td>
+            <td>{moment(start).fromNow(true)}</td>
             <td><button onclick="{ stopTimer }">Stopp</button></td>
         </tr>
     </table>
@@ -24,6 +24,9 @@
             });
             self.update();
         });
+        self.on('mount', function () {
+            setInterval(self.update, 1000);
+        });
         self.stopTimer = function (e) {
             console.log(e.item);
             e.item.end = new Date().toJSON();
@@ -32,5 +35,6 @@
             });
             
         }
+        
     </script>
 </current-tasks>

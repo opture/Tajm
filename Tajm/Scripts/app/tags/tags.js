@@ -1,7 +1,7 @@
 riot.tag('add-tasktime', '<employee-dropdown name="EmployeeId" __selected="{tasktime.employeeId}"></employee-dropdown><customer-dropdown name="CustomerId" __selected="{tasktime.customerId}"></customer-dropdown><worktask-dropdown name="WorktaskId" __selected="{tasktime.worktaskId}"></worktask-dropdown><textarea name="description"></textarea><button name="startTaskTime" onclick="{startTaskTime}">Starta</button>', function(opts) {
         var self = this;
         this.tasktime = new TaskTime({});
-
+        //this.tasktime = opts.tasktime || new TaskTime();
         this.CustomerId._tag.on('selection_changed', function (newVal) {
             self.tasktime.customerId = newVal * 1;
         });
@@ -12,7 +12,7 @@ riot.tag('add-tasktime', '<employee-dropdown name="EmployeeId" __selected="{task
             self.tasktime.taskId = newVal * 1;
         });
         this.startTaskTime = function (e) {
-
+            //console.log(this.CustomerId.options[this.CustomerId.selectedIndex].value);
             var doesExists = store.TaskTimes.storeArray.filter(function (val) {
                 return !val.end && 
                     (val.customerId == self.tasktime.customerId && 
@@ -25,12 +25,17 @@ riot.tag('add-tasktime', '<employee-dropdown name="EmployeeId" __selected="{task
                 alert('Hej kompis! du har redan satt igång den timern.');
                 return false;
             }
+            //var itemToAdd = new TaskTime(this.tasktime);
 
-            this.tasktime.description= this.description.value;
-            this.tasktime.start = new Date().toJSON();
+            self.tasktime.description = this.description.value;
+            self.tasktime.start = new Date().toJSON();
+            //itemToAdd.customer = null;
+            //itemToAdd.task = null;
+            //itemToAdd.employee = null;
 
-            console.log(this.tasktime);
-            console.log('try to add somethins');
+            //console.log(itemToAdd);
+            console.log('try to add something');
+
             store.TaskTimes.addItem(self.tasktime, function (newTask) {
                 self.tasktime = new TaskTime(newTask);
                 self.tasktime.id = 0;
@@ -38,7 +43,7 @@ riot.tag('add-tasktime', '<employee-dropdown name="EmployeeId" __selected="{task
         }
 
     
-});riot.tag('current-tasks', '<table><tr><th>Kund</th><th>Person</th><th>Uppgift</th><th>Start</th><th></th></tr><tr each="{currentTasks}"><td>{customerId}</td><td>{employeeId}</td><td>{taskId}</td><td>{start}</td><td><button onclick="{stopTimer}">Stopp</button></td></tr></table>', function(opts) {
+});riot.tag('current-tasks', '<table><tr><th>Kund</th><th>Person</th><th>Uppgift</th><th>Start</th><th></th></tr><tr each="{currentTasks}"><td>{customerId}</td><td>{employeeId}</td><td>{taskId}</td><td>{moment(start).fromNow(true)}</td><td><button onclick="{stopTimer}">Stopp</button></td></tr></table>', function(opts) {
         var self = this;
         self.currentTasks = [];
         store.TaskTimes.on('collection_changed', function () {
@@ -46,6 +51,9 @@ riot.tag('add-tasktime', '<employee-dropdown name="EmployeeId" __selected="{task
                 return !task.end;
             });
             self.update();
+        });
+        self.on('mount', function () {
+            setInterval(self.update, 1000);
         });
         self.stopTimer = function (e) {
             console.log(e.item);
@@ -55,6 +63,7 @@ riot.tag('add-tasktime', '<employee-dropdown name="EmployeeId" __selected="{task
             });
             
         }
+        
     
 });riot.tag('customer-dropdown', '<select name="CustomerId" onchange="{changeSelected}"><option each="{customerList}" id="{id}" __selected="{id==selected}">{name}</option></select>', function(opts) {
         var self = this;
@@ -95,7 +104,7 @@ riot.tag('add-tasktime', '<employee-dropdown name="EmployeeId" __selected="{task
         });
 
     
-});riot.tag('latest-tasks', '<table><tr><th>Kund</th><th>Person</th><th>Uppgift</th><th>Start</th><th>Slut</th></tr><tr each="{latestTasks}"><td>{customerId}</td><td>{employeeId}</td><td>{taskId}</td><td>{start}</td><td>{end.substring(0,10)}</td></tr></table>', function(opts) {
+});riot.tag('latest-tasks', '<tasktime-listitem each="{latestTasks}" tasktime="{this}"></tasktime-listitem>', function(opts) {
         var self = this;
         self.latestTasks = [];
         store.TaskTimes.on('collection_changed', function () {
@@ -116,7 +125,25 @@ riot.tag('add-tasktime', '<employee-dropdown name="EmployeeId" __selected="{task
         });
 
     
-});riot.tag('worktask-dropdown', '<select name="{name}" onchange="{changeSelected}"><option each="{worktaskList}" id="{id}" __selected="{id==selected}">{name} ({price}:-)</option></select>', function(opts) {
+});riot.tag('tasktime-listitem', '<div>{tasktime.customer.name}</div><div>{tasktime.task.name}</div><div>{tasktime.employee.firstname}</div><div>{moment.duration(moment(tasktime.end).unix() - moment(tasktime.start).unix()).format(\'hh:mm:ss\')}</div>', function(opts) {
+    var self = this;
+    this.tasktime = opts.tasktime;
+    this.workedTime = 0;
+
+    this.tasktime.on('customer_updated', function(){
+    self.update();
+    });
+    this.tasktime.on('employee_updated', function(){
+    self.update();
+    });
+    this.tasktime.on('task_updated', function(){
+    self.update();
+    });
+    
+  
+});
+
+riot.tag('worktask-dropdown', '<select name="{name}" onchange="{changeSelected}"><option each="{worktaskList}" id="{id}" __selected="{id==selected}">{name} ({price}:-)</option></select>', function(opts) {
         var self = this;
         this.name = opts.name || 'WorkTaskId';
         this.worktaskList = [];

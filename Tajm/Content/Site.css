@@ -192,3 +192,12 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
+
+tasktime-listitem {
+    display:flex;
+    flex-flow:row nowrap;
+}
+    tasktime-listitem div {
+    padding:0.25rem 1rem;
+    }

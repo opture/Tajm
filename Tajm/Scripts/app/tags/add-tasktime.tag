@@ -4,7 +4,7 @@
     <worktask-dropdown name="WorktaskId" selected="{tasktime.worktaskId}"></worktask-dropdown>
     <textarea name="description"></textarea>
     <button name="startTaskTime" onclick="{ startTaskTime }">Starta</button>
-    <script>
+    <script type="text/javascript">
         var self = this;
         this.tasktime = new TaskTime({});
         //this.tasktime = opts.tasktime || new TaskTime();
@@ -31,12 +31,17 @@
                 alert('Hej kompis! du har redan satt igång den timern.');
                 return false;
             }
+            //var itemToAdd = new TaskTime(this.tasktime);
 
-            this.tasktime.description= this.description.value;
-            this.tasktime.start = new Date().toJSON();
+            self.tasktime.description = this.description.value;
+            self.tasktime.start = new Date().toJSON();
+            //itemToAdd.customer = null;
+            //itemToAdd.task = null;
+            //itemToAdd.employee = null;
 
-            console.log(this.tasktime);
-            console.log('try to add somethins');
+            //console.log(itemToAdd);
+            console.log('try to add something');
+
             store.TaskTimes.addItem(self.tasktime, function (newTask) {
                 self.tasktime = new TaskTime(newTask);
                 self.tasktime.id = 0;

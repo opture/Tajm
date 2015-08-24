@@ -30,9 +30,25 @@ var TaskTime = function (opts) {
     this.start = opts.start || opts.Start;
     this.end = opts.end || opts.End;
     this.customer = {};
-    this.initcustomer = function () {
-        self.customer = store.Customers.getItem(self.customerId);
-        console.log('TaskTime Customer');
-        console.log(self.customer.name);
-    };
+    this.employee = {};
+    this.task = {};
+    (this.initcustomer = function () {
+        store.Customers.getItem(self.customerId, function (cust) {
+            self.customer = cust;
+            //self.trigger('customer_updated', cust);
+        });
+        
+    })();
+    (this.initEmployee = function () {
+        store.Employees.getItem(self.employeeId, function (emp) {
+            self.employee = emp;
+            //self.trigger('employee_updated', emp);
+        });
+    })();
+    (this.initTask = function () {
+        store.WorkTasks.getItem(self.taskId, function (_task) {
+            self.task = _task;
+            //self.trigger('task_updated', _task);
+        });
+    })();
 }

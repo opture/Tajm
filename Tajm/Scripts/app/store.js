@@ -11,8 +11,7 @@ var storeSection = function (opts) {
     this.initStore = function () {
         $.get(self.apiUrl, function (data) {
             data.forEach(function (_customer) {
-                console.log(_customer);
-                self.addItem(new self.storeType(_customer));
+                self.internalAddItem(new self.storeType(_customer));
             });
             self.trigger('collection_changed');
         });
@@ -57,19 +56,20 @@ var storeSection = function (opts) {
         self.storeArray.push(itemToAdd);
         //Tell the system there is a new item.
         self.trigger('collection_changed', itemToAdd);
-        console.log(self.store);
     }
     //Just simple helper to fetch a specific Id.
-    this.getItem = function (id) {
+    this.getItem = function (id, callback) {
         var retVal = self.store[id];
         if (!retVal) {
-            $.get(apiUrl + '/' + id, function (data) {
-                self.addItem(data);
+            $.get(self.apiUrl + '/' + id, function (data) {
+                self.internalAddItem(data);
+                callback(self.store[id])
                 self.trigger('Item_fetched', self.store[id]);
             });
         } else {
-            return self.store[id];
             self.trigger('Item_fetched', self.store[id]);
+            callback(self.store[id])
+            return self.store[id];
         }
         
     }
