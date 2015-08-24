@@ -1,0 +1,24 @@
+{
+    "name": "Tajm",
+    "preferGlobal": true,
+    "version": "0.1.0",
+    "author": "Per-Håkan Westman",
+    "description": "Tidsrapportering",
+    "bin": {
+        "package-name": "./bin/package-name"
+    },
+    "dependencies": {
+        "riot": "^2.2.4"
+    },
+    "analyze": false,
+    "devDependencies": {
+        "grunt": "^0.4.5",
+        "load-grunt-tasks": "^0.4.0",
+        "time-grunt": "^0.4.0",
+        "grunt-riot": "0.0.11"        
+    },
+    "license": "MIT",
+    "engines": {
+        "node": ">=0.6"
+    }
+}
