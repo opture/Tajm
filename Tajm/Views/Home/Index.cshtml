@@ -4,17 +4,10 @@
     ViewBag.Title = "Home Page";
 }
 <div container>
-    <add-tasktime></add-tasktime>
-    
-    <div style="display:flex;flex-flow:row">
-        <div>
-            <h3>Pågående</h3>
-            <current-tasks></current-tasks>
-        </div>
-        <div>
-            <h3>Senaste</h3>
-            <latest-tasks></latest-tasks>
-        </div>
+    <div style="display:flex;flex-flow:column;justify-content:center;align-items:center;">
+        <current-tasks></current-tasks>
+        <add-tasktime></add-tasktime>
+        <latest-tasks></latest-tasks>
     </div>
 </div>
 <div class="row">

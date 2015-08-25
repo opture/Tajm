@@ -15,7 +15,6 @@
         this.on('update', function () {
         });
         store.WorkTasks.on('collection_changed', function () {
-            console.log("I've got a indication that employees are loaded");
             self.worktaskList = store.WorkTasks.storeArray;
             self.trigger('selection_changed', self.worktaskList[0].id);
             self.update();

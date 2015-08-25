@@ -10,7 +10,7 @@ module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);
     // Configurable paths
     var config = {
-        app: 'app',
+        app: 'Scripts/app',
         dist: 'dist',
         pub: 'public'
     };
@@ -30,5 +30,21 @@ module.exports = function (grunt) {
                 //ext: '.js'
             },
         },
+        watch: {
+            js: {
+                files: ['<%= config.app %>/js/{,*/}*.js'],
+                tasks: ['jshint'],
+                options: {
+                    livereload: true
+                }
+            },
+            riottags: {
+                files: ['<%= config.app %>/tags/{,*/}*.tag'],
+                tasks: ['riot'],
+                options: {
+                    livereload: '<%= connect.options.livereload %>'
+                }
+            },
+        }
     });
 };

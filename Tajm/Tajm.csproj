@@ -256,6 +256,8 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\digital-timer-start.svg" />
+    <Content Include="Content\images\digital-timer-stop.svg" />
     <Content Include="Content\layout.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -281,6 +283,7 @@
     <Content Include="Scripts\app\tags\current-tasks.tag" />
     <Content Include="Scripts\app\tags\latest-tasks.tag" />
     <Content Include="Scripts\app\tags\tasktime-listitem.tag" />
+    <Content Include="Scripts\app\tags\tasktime-active.tag" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\app\dataloader.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

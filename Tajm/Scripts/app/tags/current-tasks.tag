@@ -1,20 +1,6 @@
 ﻿<current-tasks>
-    <table>
-        <tr>
-            <th>Kund</th>
-            <th>Person</th>
-            <th>Uppgift</th>
-            <th>Start</th>
-            <th></th>
-        </tr>
-        <tr each="{currentTasks}">
-            <td>{customerId}</td>
-            <td>{employeeId}</td>
-            <td>{taskId}</td>
-            <td>{moment(start).fromNow(true)}</td>
-            <td><button onclick="{ stopTimer }">Stopp</button></td>
-        </tr>
-    </table>
+    <tasktime-active each="{currentTasks}" tasktime="{this}">
+    </tasktime-active>
     <script>
         var self = this;
         self.currentTasks = [];
@@ -27,14 +13,7 @@
         self.on('mount', function () {
             setInterval(self.update, 1000);
         });
-        self.stopTimer = function (e) {
-            console.log(e.item);
-            e.item.end = new Date().toJSON();
-            store.TaskTimes.updateItem(e.item, function () {
-                self.update();
-            });
-            
-        }
+
         
     </script>
 </current-tasks>

@@ -3,7 +3,7 @@
     <customer-dropdown name="CustomerId" selected="{tasktime.customerId}"></customer-dropdown>
     <worktask-dropdown name="WorktaskId" selected="{tasktime.worktaskId}"></worktask-dropdown>
     <textarea name="description"></textarea>
-    <button name="startTaskTime" onclick="{ startTaskTime }">Starta</button>
+    <img name="startTaskTime"  onclick="{ startTaskTime }" src="/Content/images/digital-timer-start.svg" height="64" width="64" />
     <script type="text/javascript">
         var self = this;
         this.tasktime = new TaskTime({});
@@ -31,15 +31,10 @@
                 alert('Hej kompis! du har redan satt igång den timern.');
                 return false;
             }
-            //var itemToAdd = new TaskTime(this.tasktime);
 
             self.tasktime.description = this.description.value;
             self.tasktime.start = new Date().toJSON();
-            //itemToAdd.customer = null;
-            //itemToAdd.task = null;
-            //itemToAdd.employee = null;
 
-            //console.log(itemToAdd);
             console.log('try to add something');
 
             store.TaskTimes.addItem(self.tasktime, function (newTask) {
