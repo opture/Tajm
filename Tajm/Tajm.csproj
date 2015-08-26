@@ -265,11 +265,13 @@
     <Content Include="Content\Site.css" />
     <Content Include="Gruntfile.js" />
     <Content Include="Scripts\app\collapsiblemenu.js" />
+    <Content Include="Scripts\app\helpers.js" />
     <Content Include="Scripts\app\models.js" />
     <Content Include="Scripts\app\polyfills.js" />
     <Content Include="Scripts\app\store.js" />
-    <Content Include="Scripts\app\tags\tags.js" />
     <Content Include="package.json" />
+    <Content Include="Scripts\app\tags\mediator.js" />
+    <Content Include="Scripts\app\tags\tags.js" />
     <Content Include="Scripts\moment-duration-format.js" />
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js" />
@@ -283,7 +285,16 @@
     <Content Include="Scripts\app\tags\current-tasks.tag" />
     <Content Include="Scripts\app\tags\latest-tasks.tag" />
     <Content Include="Scripts\app\tags\tasktime-listitem.tag" />
-    <Content Include="Scripts\app\tags\tasktime-active.tag" />
+    <Content Include="Scripts\app\tags\tasktime-active.tag">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Scripts\app\tags\entypo-icons.tag" />
+    <Content Include="Scripts\app\tags\side-menu.tag">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Scripts\app\tags\tajm-app.tag">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\app\dataloader.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

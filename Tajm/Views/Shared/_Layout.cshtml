@@ -10,26 +10,12 @@
 </head>
 <body>
 
-    <nav class="responsive-nav" id="js-responsive-nav">
-        <ul class="responsive-nav__list">
-            <li class="responsive-nav__item">
-                @Html.ActionLink("Hem", "Index", "Home", null, new { @class = "responsive-nav__link" })
-            </li>
-            <li class="responsive-nav__item">
-                @Html.ActionLink("Kunder", "Index", "Customers", null, new { @class = "responsive-nav__link" })
-            </li>
-            <li class="responsive-nav__item">
-                @Html.ActionLink("Resurser", "Index", "Employees", null, new { @class = "responsive-nav__link" })
-            </li>
-            <li class="responsive-nav__item">
-                @Html.ActionLink("Uppgifter", "Index", "WorkTasks", null, new { @class = "responsive-nav__link" })
-            </li>
-        </ul>
-    </nav>
-    <div id="showAddTask" style="position:absolute;right:0.5rem;top:0.3rem;background:#f43059;color:black;width:3rem;height:3rem;border-radius:2rem;text-align:center;font-size:2rem;">+</div>
 
+
+    <entypo-icons style="display:none;" id="entypo-icons-collection"></entypo-icons>
 
         @RenderBody()
+    
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/riot/2.2.4/riot.js"></script>
         <script src="~/Scripts/moment-with-locales.min.js"></script>
@@ -37,7 +23,7 @@
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/layoutscript")
         @RenderSection("scripts", required: false)
-
+    <script src="~/Scripts/app/helpers.js"></script>
         <script src="~/Scripts/app/tags/tags.js"></script>
         <script src="~/Scripts/app/polyfills.js"></script>
         <script src="~/Scripts/app/models.js"></script>
@@ -49,16 +35,7 @@
         </script>
     <script>
 
-    document.getElementById('showAddTask').addEventListener('click', function(){
-        var theForm = document.getElementById('addTaskTimeForm');
-        console.log(theForm.style.display);
-        if (theForm.style.display == "none") {
-            theForm.style.display = 'block';
-        } else {
-            theForm.style.display = 'none';
-        }
 
-    });
 
     </script>
 </body>

@@ -1,4 +1,4 @@
-﻿/// <binding BeforeBuild='riot:pages' />
+﻿/// <binding BeforeBuild='riot:pages' ProjectOpened='watch:riottags' />
 module.exports = function (grunt) {
     'use strict';
     grunt.initConfig({
@@ -23,29 +23,17 @@ module.exports = function (grunt) {
             pages: {
                 src: 'Scripts/app/tags/*.tag',
                 dest: 'Scripts/app/tags/tags.js'
-                //expand: true,
-                //cwd: '<%= config.app %>/tags/',
-                //src: '**/*.tag',
-                //dest: 'js/tags.js',
-                //ext: '.js'
-            },
-        },
-        watch: {
-            js: {
-                files: ['<%= config.app %>/js/{,*/}*.js'],
-                tasks: ['jshint'],
-                options: {
-                    livereload: true
-                }
-            },
-            riottags: {
-                files: ['<%= config.app %>/tags/{,*/}*.tag'],
-                tasks: ['riot'],
-                options: {
-                    livereload: '<%= connect.options.livereload %>'
-                }
             },
         },
         
+        // Watches files for changes and runs tasks based on the changed files
+        watch: {
+            riottags: {
+                files: ['<%= config.app %>/tags/{,*/}*.tag'],
+                tasks: ['riot'],
+                options: {}
+            }
+        },
+
     });
 };

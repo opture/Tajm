@@ -14,6 +14,5 @@
             setInterval(self.update, 1000);
         });
 
-        
     </script>
 </current-tasks>

@@ -1,10 +1,5 @@
 ﻿<latest-tasks>
-  
-    <tasktime-listitem each="{latestTasks}" tasktime="{this}">
-    </tasktime-listitem>
-  
-
-
+  <tasktime-listitem each="{latestTasks}" tasktime="{this}"></tasktime-listitem>
   <script>
         var self = this;
         self.latestTasks = [];

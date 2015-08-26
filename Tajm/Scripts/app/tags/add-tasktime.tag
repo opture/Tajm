@@ -2,11 +2,23 @@
     <employee-dropdown name="EmployeeId" selected="{tasktime.employeeId}"></employee-dropdown>
     <customer-dropdown name="CustomerId" selected="{tasktime.customerId}"></customer-dropdown>
     <worktask-dropdown name="WorktaskId" selected="{tasktime.worktaskId}"></worktask-dropdown>
+  <div style="display:flex;flex-flow:row;">
     <textarea name="description"></textarea>
-    <img name="startTaskTime"  onclick="{ startTaskTime }" src="/Content/images/digital-timer-start.svg" height="64" width="64" />
-    <script type="text/javascript">
+    <b entypo-icon="Play" onclick="{ startTaskTime }" standard-icon="" name="addTaskItem" class="" style="z-index:4;fill:rgba(0,255,0,0.87);"></b>
+  </div>
+
+
+  <script type="text/javascript">
         var self = this;
         this.tasktime = new TaskTime({});
+        self.attrs = [
+        { 'scroll-vertical': '' },
+        { 'scroll-reveal': 'fadeIn' },
+        { 'center-vert': '' }
+        ];
+        this.on('mount', function () {
+            helpers.initPageTag(self);
+        });
         //this.tasktime = opts.tasktime || new TaskTime();
         this.CustomerId._tag.on('selection_changed', function (newVal) {
             self.tasktime.customerId = newVal * 1;
