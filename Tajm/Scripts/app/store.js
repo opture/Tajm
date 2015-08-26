@@ -51,6 +51,7 @@ var storeSection = function (opts) {
     //Insert item in stores.
     this.internalAddItem = function (itemToAdd) {
         //Add to kvp.
+        if (!itemToAdd.id) { return; }
         self.store[itemToAdd.id] = itemToAdd;
         //Add to array.
         self.storeArray.push(itemToAdd);

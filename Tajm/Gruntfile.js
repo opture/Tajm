@@ -45,6 +45,7 @@ module.exports = function (grunt) {
                     livereload: '<%= connect.options.livereload %>'
                 }
             },
-        }
+        },
+        
     });
 };
