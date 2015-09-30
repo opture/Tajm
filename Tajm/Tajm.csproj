@@ -295,6 +295,21 @@
     <Content Include="Scripts\app\tags\tajm-app.tag">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Scripts\app\tags\customers\customer-add.tag" />
+    <Content Include="Scripts\app\tags\customers\customer-edit.tag" />
+    <Content Include="Scripts\app\tags\customers\customer-list.tag" />
+    <Content Include="Scripts\app\tags\customers\customer-details.tag" />
+    <Content Include="Scripts\app\tags\customers\customer-listitem.tag" />
+    <Content Include="Scripts\app\tags\employees\employee-add.tag" />
+    <Content Include="Scripts\app\tags\employees\employee-details.tag" />
+    <Content Include="Scripts\app\tags\employees\employee-edit.tag" />
+    <Content Include="Scripts\app\tags\employees\employee-list.tag" />
+    <Content Include="Scripts\app\tags\employees\employee-listitem.tag" />
+    <Content Include="Scripts\app\tags\worktasks\worktask-add.tag" />
+    <Content Include="Scripts\app\tags\worktasks\worktask-details.tag" />
+    <Content Include="Scripts\app\tags\worktasks\worktask-edit.tag" />
+    <Content Include="Scripts\app\tags\worktasks\worktask-list.tag" />
+    <Content Include="Scripts\app\tags\worktasks\worktask-listitem.tag" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\app\dataloader.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

@@ -2,7 +2,7 @@
 			    <b entypo-icon="Stopwatch" id="showAddTask" class="side-menu-icon" standard-icon="" name="V-card" ></b>
 			    <b entypo-icon="V-card" class="side-menu-icon" standard-icon="" name="V-card" ></b>
 			    <b entypo-icon="User" class="side-menu-icon" standard-icon="" name="V-card" ></b>
-			    <b entypo-icon="Credit" class="side-menu-icon" standard-icon="" name="V-card"></b>
+			    <b entypo-icon="Tools" class="side-menu-icon" standard-icon="" name="V-card"></b>
 		<script>
       var self = this;
       self.attrs = [

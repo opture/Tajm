@@ -128,7 +128,7 @@ riot.tag('latest-tasks', '<tasktime-listitem each="{latestTasks}" tasktime="{thi
         });
 
     
-});riot.tag('side-menu', '<b entypo-icon="Stopwatch" id="showAddTask" class="side-menu-icon" standard-icon="" name="V-card" ></b><b entypo-icon="V-card" class="side-menu-icon" standard-icon="" name="V-card" ></b><b entypo-icon="User" class="side-menu-icon" standard-icon="" name="V-card" ></b><b entypo-icon="Credit" class="side-menu-icon" standard-icon="" name="V-card"></b>', function(opts) {
+});riot.tag('side-menu', '<b entypo-icon="Stopwatch" id="showAddTask" class="side-menu-icon" standard-icon="" name="V-card" ></b><b entypo-icon="V-card" class="side-menu-icon" standard-icon="" name="V-card" ></b><b entypo-icon="User" class="side-menu-icon" standard-icon="" name="V-card" ></b><b entypo-icon="Tools" class="side-menu-icon" standard-icon="" name="V-card"></b>', function(opts) {
       var self = this;
       self.attrs = [
       ];

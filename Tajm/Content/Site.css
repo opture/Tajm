@@ -295,6 +295,8 @@ add-tasktime {
 side-menu {
     display:flex;
     width:100%;
+    max-width:40rem;
+    margin:1rem auto;
     background:rgba(255,255,255,0.45);
     justify-content:space-between;
 }
