@@ -79,6 +79,35 @@ riot.tag('add-tasktime', '<employee-dropdown name="EmployeeId" __selected="{task
         });
 
     
+});riot.tag('customer-list', '<customer-listitem each="{customer in customers}" customer="{customer}"></customer-listitem>', function(opts) {
+		var self = this;
+		self.customers = [];
+		self.on('mount', function () {
+			helpers.initPageTag(self);
+		});
+		store.Customers.on('collection_changed', function(){
+			self.customers = store.Customers.storeArray;
+			self.update();
+		});
+		self.toggleTimer = function(){
+			console.log('toggleTimer');
+		}
+	
+});riot.tag('customer-listitem', '<div><b onclick="{toggleTimer}" class="{spinSlow: timerOn}" medium-icon="" entypo-icon="Stopwatch" style="fill:rgba(255,0,0,0.87);"></b><b onclick="{showInfo}" medium-icon="" entypo-icon="Info" style="fill:rgba(255,0,0,0.87);"></b></div><label>{customer.name}</label>', function(opts) {
+    var self = this;
+    self.timerOn = false;
+    self.customer = opts.customer;
+    self.on('mount', function(){
+    helpers.initPageTag(self);
+    });
+    self.showInfo = function(){
+
+    };
+    self.toggleTimer = function(){
+      self.timerOn = !self.timerOn;
+      self.update();
+    }
+  
 });riot.tag('employee-dropdown', '<select name="EmployeeId" onchange="{changeSelected}"><option each="{employeeList}" id="{id}" __selected="{id==selected}">{firstname} {lastname}</option></select>', function(opts) {
         var self = this;
         this.name = opts.name || 'EmployeeId';
@@ -147,9 +176,9 @@ riot.tag('latest-tasks', '<tasktime-listitem each="{latestTasks}" tasktime="{thi
       });
 
     
-});riot.tag('tajm-app', '<div fit style="display:flex;flex-flow:column;"><side-menu></side-menu><current-tasks style="margin:0 auto;background:rgba(255,255,255,0.56);color:rgba(0,0,0,0.87)"></current-tasks><add-tasktime id="addTaskTimeForm" style="margin:0 auto;display:none;background:rgba(0,0,0,0.7)"></add-tasktime><latest-tasks scroll-vertical="" style="margin:0 auto;background:rgba(255,255,255,0.35);color:rgba(0,0,0,0.87)"></latest-tasks></div>', function(opts) {
+});riot.tag('tajm-app', '<div fit style="display:flex;flex-flow:column;"><side-menu></side-menu><customer-list></customer-list><current-tasks style="margin:0 auto;background:rgba(255,255,255,0.56);color:rgba(0,0,0,0.87)"></current-tasks><add-tasktime id="addTaskTimeForm" style="margin:0 auto;display:none;background:rgba(0,0,0,0.7)"></add-tasktime><latest-tasks scroll-vertical="" style="margin:0 auto;background:rgba(255,255,255,0.35);color:rgba(0,0,0,0.87)"></latest-tasks></div>', function(opts) {
 	
-});riot.tag('tasktime-active', '<div style="display:flex;flex-flow:column"><div>{tasktime.customer.name}</div><div>{tasktime.task.name}</div></div><div style="display:flex;flex-flow:column"><div>{moment.duration(moment().unix() - moment(tasktime.start).unix(), "seconds").format(\'hh:mm:ss\',{ forceLength: true})}</div><div><b onclick="{stopTimer}" mini-icon="" entypo-icon="Stopwatch" style="fill:rgba(255,0,0,0.87);"></b></div></div>', function(opts) {
+});riot.tag('tasktime-active', '<div><b onclick="{stopTimer}" standard-icon="" entypo-icon="Stopwatch" style="fill:rgba(255,0,0,0.87);"></b></div><div>{moment.duration(moment().unix() - moment(tasktime.start).unix(), "seconds").format(\'hh:mm:ss\',{ forceLength: true})}</div><div style="display:flex;flex-flow:column"><div>{tasktime.customer.name}</div><div>{tasktime.task.name}</div></div>', function(opts) {
       var self = this;
       this.tasktime = opts.tasktime;
       this.workedTime = 0;
@@ -157,22 +186,22 @@ riot.tag('latest-tasks', '<tasktime-listitem each="{latestTasks}" tasktime="{thi
         helpers.initPageTag(self);
       });
       self.stopTimer = function (e) {
-      console.log(e.item);
-      e.item.end = new Date().toJSON();
-      store.TaskTimes.updateItem(e.item, function () {
-      self.update();
+        console.log(e.item);
+        e.item.end = new Date().toJSON();
+        store.TaskTimes.updateItem(e.item, function () {
+        self.update();
       });
 
       }
 
       this.tasktime.on('customer_updated', function () {
-      self.update();
+        self.update();
       });
       this.tasktime.on('employee_updated', function () {
-      self.update();
+        self.update();
       });
       this.tasktime.on('task_updated', function () {
-      self.update();
+        self.update();
       });
 
     

@@ -2,6 +2,7 @@
     opts = opts || {};
     this.id = opts.id || opts.Id;
     this.name = opts.name || opts.Name;
+    this.workTasks = opts.workTasks || opts.WorkTasks;
 }
 
 var WorkTask = function (opts) {

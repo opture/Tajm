@@ -11,7 +11,7 @@ html {
 body {
 
     color:rgba(255,255,255,0.78);
-  background: url(images/background.jpg) no-repeat center center fixed; 
+  background: url(images/background.png) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -201,7 +201,9 @@ a {
 a:hover {
   text-decoration: underline;
 }
-
+tajm-app > div{
+    padding:0.25rem;
+}
 latest-tasks {
         width:100%;
     max-width:40rem;
@@ -259,26 +261,26 @@ tasktime-active {
     flex-flow:row;
     justify-content:space-between;
     border-bottom:1px solid silver;
-    height:3rem;
+    height:5rem;
     border:1px solid silver;
 }
-    tasktime-active div:nth-child(1) {
+    tasktime-active div:nth-child(2) {
         width:15rem;
     }
-    tasktime-active div:nth-child(2) {
-        width:5rem;
+    tasktime-active div:nth-child(1) {
+        width:15rem;
     }
     tasktime-active div:nth-child(1) div {   
         white-space:nowrap;
         overflow:hidden;
         text-overflow:ellipsis;
         margin:0.25rem 0.25rem 0 0.25rem;
-        width:100%;;
+        width:100%;
     }
         
         tasktime-active div:nth-child(3), tasktime-active div:nth-child(4) {
             text-align:right;
-            width:5rem;
+            width:15rem;
         }
 add-tasktime {
     width:calc(100% - 6px);
@@ -305,4 +307,58 @@ side-menu {
     height:3.5rem;
     padding:0.25rem;
     width:3.5rem;
+}
+customer-list {
+    display: flex;
+    flex-flow: column;
+    color: black;
+    width: 100%;
+    
+    max-width: 40rem;
+    margin: 0 auto;
+}
+customer-listitem {
+    display:flex;
+    height:3rem;
+    background: rgba(255,255,255,0.6);
+    box-shadow: 0.1rem 0.1rem 0.25rem 0.1rem rgba(0,0,0,0.4);
+    justify-content:space-between;
+    align-items:center;
+    padding:0.25rem;
+    width:100%;
+    margin:0.25rem auto;
+}
+    customer-listitem:last-child {
+        margin-bottom:0.5rem;
+    }
+    customer-listitem label {
+        font-weight:bolder;
+    }
+    customer-listitem div {
+        display:flex;
+        
+    }
+        customer-listitem div > b {
+            box-shadow:inset 0rem 0rem 0.1rem 0.2rem rgba(0,0,0,0.2), 0.1rem 0.1rem 0.15rem 0.1rem rgba(0,0,0,0.6);
+            background:rgba(255,255,255,0.8);
+            margin:0.25rem;
+            padding:0.45rem;
+            border-radius:0.25rem;
+        }
+
+
+
+@keyframes spinSlow {
+    0% {
+        transform:rotateZ(0deg);
+    }
+    100%{
+        transform:rotateZ(360deg);
+    }
+}
+.spinSlow svg{
+    animation-name: spinSlow;
+    animation-iteration-count:infinite;
+    animation-duration:3s;
+    animation-timing-function:ease-in;
 }

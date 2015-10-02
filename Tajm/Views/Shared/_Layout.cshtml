@@ -23,12 +23,13 @@
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/layoutscript")
         @RenderSection("scripts", required: false)
-    <script src="~/Scripts/app/helpers.js"></script>
-        <script src="~/Scripts/app/tags/tags.js"></script>
-        <script src="~/Scripts/app/polyfills.js"></script>
+        <script src="~/Scripts/app/polyfills.js"></script>    
+        <script src="~/Scripts/app/helpers.js"></script>
+        
         <script src="~/Scripts/app/models.js"></script>
         <script src="~/Scripts/app/store.js"></script>
         <script src="~/Scripts/app/dataloader.js"></script>
+        <script src="~/Scripts/app/tags/tags.js"></script>
         <script>
             moment.locale('sv');
             riot.mount('*')

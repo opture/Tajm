@@ -21,7 +21,7 @@ module.exports = function (grunt) {
                 concat: true
             },
             pages: {
-                src: 'Scripts/app/tags/*.tag',
+                src: 'Scripts/app/tags/**/*.tag',
                 dest: 'Scripts/app/tags/tags.js'
             },
         },

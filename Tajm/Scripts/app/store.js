@@ -60,6 +60,7 @@ var storeSection = function (opts) {
     }
     //Just simple helper to fetch a specific Id.
     this.getItem = function (id, callback) {
+        if (!id) { return;}
         var retVal = self.store[id];
         if (!retVal) {
             $.get(self.apiUrl + '/' + id, function (data) {
