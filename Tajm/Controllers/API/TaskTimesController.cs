@@ -58,6 +58,14 @@ namespace Tajm.Controllers.API
                 return BadRequest();
             }
 
+            //TaskTime taskTimeToChange = db.TaskTimes.FirstOrDefault(_t => _t.Id == id);
+            //taskTimeToChange.End = taskTime.End;
+            //taskTimeToChange.Start = taskTime.Start;
+            //taskTimeToChange.CustomerId = taskTime.CustomerId;
+            //taskTimeToChange.Description = taskTime.Description;
+            //taskTimeToChange.EmployeeId = taskTime.EmployeeId;
+            //taskTimeToChange.Invoiced = taskTime.Invoiced;
+            //taskTimeToChange.TaskId = taskTime.TaskId;
             db.Entry(taskTime).State = EntityState.Modified;
 
             try

@@ -38,7 +38,11 @@ textarea {
     max-width: 280px;
 }
 
-
+h4,h5,h6 {
+    margin:0.25rem;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
 /* ------------------------------------
 MOBILE FIRST RESPONSIVE NAV
 ------------------------------------ */
@@ -284,10 +288,12 @@ tasktime-active {
         }
 add-tasktime {
     width:calc(100% - 6px);
+    display:inline-block;
+    position:absolute;
     max-width:30rem;
     padding:1rem;
-    position:absolute;
     top:4.5rem;
+    left:calc( 50% - ((100% - 6px) / 2) );
     margin:0 auto;
     border:1px solid silver;
     border-radius:0.5rem;
@@ -319,8 +325,9 @@ customer-list {
 }
 customer-listitem {
     display:flex;
-    height:3rem;
-    background: rgba(255,255,255,0.6);
+    position:relative;
+    height:5rem;
+    background: rgba(255,255,255,0.85);
     box-shadow: 0.1rem 0.1rem 0.25rem 0.1rem rgba(0,0,0,0.4);
     justify-content:space-between;
     align-items:center;
@@ -331,34 +338,75 @@ customer-listitem {
     customer-listitem:last-child {
         margin-bottom:0.5rem;
     }
-    customer-listitem label {
-        font-weight:bolder;
-    }
-    customer-listitem div {
+
+    customer-listitem > div {
         display:flex;
-        
+        flex-flow:column;
+        max-height:5rem;
     }
+        customer-listitem > div > p {
+            line-height:1rem;
+            font-size:0.9rem;
+            margin:0;
+            padding:0;
+        }
+
         customer-listitem div > b {
-            box-shadow:inset 0rem 0rem 0.1rem 0.2rem rgba(0,0,0,0.2), 0.1rem 0.1rem 0.15rem 0.1rem rgba(0,0,0,0.6);
+            box-shadow:inset 0rem 0rem 0.1rem 0.2rem rgba(0,0,0,0.2), 0.1rem 0.1rem 0.15rem 0.1rem rgba(0,0,0,0.3);
             background:rgba(255,255,255,0.8);
             margin:0.25rem;
             padding:0.45rem;
-            border-radius:0.25rem;
+            border-radius:1rem;
         }
-
-
+    customer-listitem > worktask-picker {
+        display:none;
+        background:rgba(255,255,255,0.87);
+        padding:1rem;
+        border-radius:0.25rem;
+    }
+        customer-listitem > worktask-picker.active {
+            display:inline-block;
+            position:absolute;
+            left:2rem;
+            top:1.5rem;
+            z-index:2;
+        }
+    customer-listitem > form {
+        display:none;
+        background:rgba(255,255,255,0.87);
+        padding:1rem;
+        border-radius:0.25rem;
+    }
+        customer-listitem > form.active {
+            display:inline-block;
+            position:absolute;
+            left:2rem;
+            top:1.5rem;
+            z-index:2;
+        }
+@keyframes pulsate {
+    0% {-webkit-transform: scale(0.95, 0.95); opacity: 0.6;}
+    50% {-webkit-transform: scale(1.05, 1.05); opacity: 1;}
+    100% {-webkit-transform: scale(0.95, 0.95); opacity: 0.6;}
+}
 
 @keyframes spinSlow {
     0% {
-        transform:rotateZ(0deg);
+        transform:scale(1);
     }
+
     100%{
-        transform:rotateZ(360deg);
+        transform:rotateZ(1);
+        
     }
 }
 .spinSlow svg{
-    animation-name: spinSlow;
+    animation-name: pulsate;
     animation-iteration-count:infinite;
     animation-duration:3s;
-    animation-timing-function:ease-in;
+    animation-timing-function:linear;
+}
+taskIcon.active {
+    fill:red;
+
 }

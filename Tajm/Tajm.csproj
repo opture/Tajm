@@ -263,6 +263,14 @@
     <Compile Include="Migrations\201508231445149_Changed ugly ID to Id on models.Designer.cs">
       <DependentUpon>201508231445149_Changed ugly ID to Id on models.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510030054274_UTC datetimes.cs" />
+    <Compile Include="Migrations\201510030054274_UTC datetimes.Designer.cs">
+      <DependentUpon>201510030054274_UTC datetimes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510030109254_Changed to datetimeoffset on datetimes.cs" />
+    <Compile Include="Migrations\201510030109254_Changed to datetimeoffset on datetimes.Designer.cs">
+      <DependentUpon>201510030109254_Changed to datetimeoffset on datetimes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -275,10 +283,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\background.png" />
     <Content Include="Content\images\digital-timer-start.svg" />
     <Content Include="Content\images\digital-timer-stop.svg" />
     <Content Include="Content\layout.css" />
@@ -297,6 +302,7 @@
     <Content Include="Scripts\app\tags\tags.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\app\tags\worktask-picker.tag" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -312,7 +318,6 @@
     <Content Include="_bower.json" />
     <Content Include="Scripts\app\tags\customer-dropdown.tag" />
     <Content Include="Scripts\app\tags\employee-dropdown.tag" />
-    <Content Include="Scripts\app\tags\worktask-dropdown.tag" />
     <Content Include="Scripts\app\tags\add-tasktime.tag" />
     <Content Include="Scripts\app\tags\current-tasks.tag" />
     <Content Include="Scripts\app\tags\latest-tasks.tag" />
@@ -435,6 +440,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201508231445149_Changed ugly ID to Id on models.resx">
       <DependentUpon>201508231445149_Changed ugly ID to Id on models.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510030054274_UTC datetimes.resx">
+      <DependentUpon>201510030054274_UTC datetimes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510030109254_Changed to datetimeoffset on datetimes.resx">
+      <DependentUpon>201510030109254_Changed to datetimeoffset on datetimes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

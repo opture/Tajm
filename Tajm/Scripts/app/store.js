@@ -7,17 +7,18 @@ var storeSection = function (opts) {
     this.storeType = opts.storeType || Object;
     this.store = {};
     this.storeArray = [];
+
     //Simple init function for store.
     this.initStore = function () {
         $.get(self.apiUrl, function (data) {
             data.forEach(function (_customer) {
                 self.internalAddItem(new self.storeType(_customer));
             });
+            self.trigger('store_initialized');
             self.trigger('collection_changed');
-        });
-
-        
+        });       
     };
+
     //Simle function to add object to store.
     this.addItem = function (itemToAdd, callback) {
         if (!itemToAdd.id && self.apiUrl) {
@@ -35,6 +36,8 @@ var storeSection = function (opts) {
             if (callback) { callback(itemToAdd); }
         }
     }
+
+    //Update item. Callback when the server has stored it.
     this.updateItem = function (itemToUpdate, callback) {
         $.ajax({
             url: self.apiUrl + '/' + itemToUpdate.id,
@@ -43,11 +46,11 @@ var storeSection = function (opts) {
             data: JSON.stringify(itemToUpdate),
             success: function (data) {
                 self.trigger('collection_changed');
-                if (callback) { callback(itemToUpdate)}
+                if (callback) { callback(itemToUpdate) }
             }
         });
-    }
-    //
+    };
+
     //Insert item in stores.
     this.internalAddItem = function (itemToAdd) {
         //Add to kvp.
@@ -56,11 +59,13 @@ var storeSection = function (opts) {
         //Add to array.
         self.storeArray.push(itemToAdd);
         //Tell the system there is a new item.
-        self.trigger('collection_changed', itemToAdd);
+        self.trigger('ITEM_ADDED', itemToAdd);
     }
+
+
     //Just simple helper to fetch a specific Id.
     this.getItem = function (id, callback) {
-        if (!id) { return;}
+        if (!id) { return; }
         var retVal = self.store[id];
         if (!retVal) {
             $.get(self.apiUrl + '/' + id, function (data) {
@@ -73,8 +78,8 @@ var storeSection = function (opts) {
             callback(self.store[id])
             return self.store[id];
         }
-        
-    }
+
+    };
 }
 
 var store = {
@@ -85,4 +90,18 @@ var store = {
     currentTasks: new storeSection({ apiUrl: '/api/TaskTimes', storeType: TaskTime }),
     lastFinishedTasks: new storeSection({ apiUrl: '/api/TaskTimes', storeType: TaskTime }),
 };
+riot.observable(store);
+store.TaskTimes.getItemsByCustomerId = function (id) {
+    return store.TaskTimes.storeArray.filter(function (_t) {
+        return _t.customerId == id;
+    }).sort(function (a, b) {
+        if (a.start > b.start) return -1;
+        if (a.start < b.start) return 1;
+        return 0;
+    });
+}
+store.Employees.on('collection_changed', function () {
+    window.user = store.Employees.storeArray[0];
+});
 
+store.trigger('stores-loaded');

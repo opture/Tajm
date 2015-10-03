@@ -23,8 +23,8 @@ namespace Tajm.Models
         [JsonIgnore]
         public virtual WorkTask Task { get; set; }
         public string Description { get; set; }
-        public DateTime Start { get; set; }
-        public DateTime? End { get; set; }
+        public DateTimeOffset Start { get; set; }
+        public DateTimeOffset? End { get; set; }
         public bool Invoiced { get; set; }
 
     }

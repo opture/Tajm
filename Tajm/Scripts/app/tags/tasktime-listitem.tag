@@ -1,10 +1,10 @@
 ﻿<tasktime-listitem>
     <div class="left-column">
-        <div id="customerName">{tasktime.customer.name}</div>
+        <div id="customerName">{moment(tasktime.start).format('hh:mm')}</div>
         <div id="taskName">{tasktime.task.name}</div>
     </div>
     <div class="right-column">
-        <div id="employeeName">{tasktime.employee.firstname}</div>
+        <div id="employeeName">{moment(tasktime.end).format('hh:mm')}</div>
         <div id="elapsedTime">{moment.duration(moment(tasktime.end).unix() - moment(tasktime.start).unix(),"seconds").format('hh:mm:ss',{ forceLength: true })}</div>
     </div>
         <script>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using Newtonsoft.Json;
 
 namespace Tajm
 {
@@ -10,7 +11,8 @@ namespace Tajm
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-
+            var jsonFormatter = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
+            jsonFormatter.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
             // Web API routes
             config.MapHttpAttributeRoutes();
 
