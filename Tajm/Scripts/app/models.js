@@ -68,6 +68,7 @@ var WorkTask = function (opts) {
 var Employee = function (opts) {
     opts = opts || {};
     this.id = opts.id || opts.Id;
+    this.userId = opts.userId || opts.UserId;
     this.firstname = opts.firstname || opts.FirstName;
     this.lastname = opts.lastname || opts.LastName;
 }

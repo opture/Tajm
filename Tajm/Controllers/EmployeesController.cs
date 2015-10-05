@@ -19,7 +19,9 @@ namespace Tajm.Controllers
         // GET: Employees
         public async Task<ActionResult> Index()
         {
-            return View(await db.Employees.ToListAsync());
+
+            return View(System.Web.Security.Membership.GetAllUsers());
+            //return View(await db.Employees.ToListAsync());
         }
 
         // GET: Employees/Details/5

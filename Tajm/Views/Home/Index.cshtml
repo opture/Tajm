@@ -1,9 +1,13 @@
-﻿@model Tajm.Models.TaskTime
+﻿@using Microsoft.AspNet.Identity
+@model Tajm.Models.TaskTime
 
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Bärnsten Tajm";
 }
 
 
-    <tajm-app fit ></tajm-app>
+<script>
+    var loggedInUserId = "@User.Identity.GetUserId()";
+</script>
+<tajm-app fit></tajm-app>
 

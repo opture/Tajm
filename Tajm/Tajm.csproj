@@ -271,6 +271,10 @@
     <Compile Include="Migrations\201510030109254_Changed to datetimeoffset on datetimes.Designer.cs">
       <DependentUpon>201510030109254_Changed to datetimeoffset on datetimes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510031500099_UserIdToEmployee.cs" />
+    <Compile Include="Migrations\201510031500099_UserIdToEmployee.Designer.cs">
+      <DependentUpon>201510031500099_UserIdToEmployee.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -303,6 +307,8 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\app\tags\worktask-picker.tag" />
+    <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
+    <Content Include="Scripts\app\tags\worktask-dropdown.tag" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -315,6 +321,7 @@
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Tajm.publish.xml" />
     <Content Include="_bower.json" />
     <Content Include="Scripts\app\tags\customer-dropdown.tag" />
     <Content Include="Scripts\app\tags\employee-dropdown.tag" />
@@ -355,7 +362,9 @@
     <Content Include="Scripts\app\dataloader.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -446,6 +455,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510030109254_Changed to datetimeoffset on datetimes.resx">
       <DependentUpon>201510030109254_Changed to datetimeoffset on datetimes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510031500099_UserIdToEmployee.resx">
+      <DependentUpon>201510031500099_UserIdToEmployee.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -12,7 +12,9 @@
             this.selected = e.target[e.target.selectedIndex].id;
             this.trigger('selection_changed', e.target[e.target.selectedIndex].id);
         }
-        this.on('update', function () {
+        this.on('mount', function () {
+            self.customerList = store.Customers.storeArray;
+            self.update();
         });
         store.Customers.on('collection_changed', function () {
             self.customerList = store.Customers.storeArray;

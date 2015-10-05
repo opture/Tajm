@@ -3,11 +3,11 @@
         <div style="display:flex;flex-flow:row;">
             <b onclick="{ startTimer }" show="{!customer.activeTask}" medium-icon="" entypo-icon="Play" style="fill:green"></b>
             <b onclick="{ stopTimer }" show="{customer.activeTask}" class="spinSlow" medium-icon="" entypo-icon="Stop" style="fill:rgba(255,0,0,0.87);"></b>
-            <b onclick="{ callTo }" medium-icon="" entypo-icon="Phone" style="fill:rgba(0,0,0,0.87);"></b>
+            <b onclick="{ callTo }" medium-icon="" entypo-icon="Phone" style="fill:#fa5606;"></b>
         </div>
         <div style="display:flex;flex-flow:row;">
-            <b onclick="{ showInfo }" medium-icon="" entypo-icon="Info" style="fill:rgba(0,0,255,0.87);"></b>
-            <b onclick="{ showInfo }" medium-icon="" entypo-icon="Credit" style="fill:rgba(0,0,0,0.87);"></b>
+            <b onclick="{ showInfo }" medium-icon="" entypo-icon="Info" style="fill:#fa5606;"></b>
+            <b onclick="{ showInfo }" medium-icon="" entypo-icon="Credit" style="fill:#fa5606;"></b>
         </div>
 
     </div>

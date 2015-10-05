@@ -1,21 +1,35 @@
 ﻿@charset "UTF-8";
-html {
-  box-sizing: border-box;
-}
-*, *:before, *:after {
-  box-sizing: inherit;
-}
-::-webkit-scrollbar { 
-    display: none; 
-}
-body {
 
-    color:rgba(255,255,255,0.78);
-  background: url(images/background.png) no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+html {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    height:100%;
+    min-height:100%;
+    margin:0;
+    padding:0;
+}
+
+*, *:before, *:after {
+    -moz-box-sizing: inherit;
+    -webkit-box-sizing: inherit;
+    box-sizing: inherit;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+body {
+    color: rgba(255,255,255,0.78);
+    background: url(images/background.png) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    min-height:100%;
+    padding:0;
+    margin:0;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -38,10 +52,23 @@ textarea {
     max-width: 280px;
 }
 
-h4,h5,h6 {
-    margin:0.25rem;
-    white-space:nowrap;
-    text-overflow:ellipsis;
+h4, h5, h6 {
+    margin: 0.25rem;
+    white-space: nowrap;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}
+
+#loginForm {
+    display: block;
+    position: relative;
+    width: 20rem;
+    height: 10rem;
+    background: white;
+    color: black;
+    margin: 3rem auto;
+    padding: 0.5rem 2rem;
 }
 /* ------------------------------------
 MOBILE FIRST RESPONSIVE NAV
@@ -59,22 +86,23 @@ MOBILE FIRST RESPONSIVE NAV
  * [1] Make sure we can’t actually see the absolutely positioned dropdown.
  */
 .responsive-nav {
-  position: relative;
-  max-width: 20em;
-  overflow: hidden;
-  z-index:3;
-  margin-bottom:1rem;
-  /* Now show full width */
+    position: relative;
+    max-width: 20em;
+    overflow: hidden;
+    z-index: 3;
+    margin-bottom: 1rem;
+    /* Now show full width */
 }
+
 @media (min-width: 40em) {
-  .responsive-nav {
-    max-width: 100%;
-  }
+    .responsive-nav {
+        max-width: 100%;
+    }
 }
 
 /* Class added via JS when toggled open */
 .responsive-nav--open {
-  overflow: visible;
+    overflow: visible;
 }
 
 /**
@@ -82,29 +110,31 @@ MOBILE FIRST RESPONSIVE NAV
  * ========
  */
 .responsive-nav__list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  background-color: #f43059;
-  border-bottom-right-radius: 3px;
-  border-bottom-left-radius: 3px;
-  width: 100%;
-  /**
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background-color: #f43059;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    width: 100%;
+    /**
    * Hide nav by default only when JS is running and viewport is less than
    * navigation breakpoint.
    * The wrapper has 'overflow: hidden;' which hides it.
    */
-  /* Remove background */
+    /* Remove background */
 }
+
 @media (max-width: 40em) {
-  .js .responsive-nav__list {
-    position: absolute;
-  }
+    .js .responsive-nav__list {
+        position: absolute;
+    }
 }
+
 @media (min-width: 40em) {
-  .responsive-nav__list {
-    background: none;
-  }
+    .responsive-nav__list {
+        background: none;
+    }
 }
 
 /**
@@ -112,14 +142,15 @@ MOBILE FIRST RESPONSIVE NAV
  * ==============
  */
 .responsive-nav__item {
-  border-top: 1px solid #f76080;
-  /* Change from stacked to display in a row */
+    border-top: 1px solid #f76080;
+    /* Change from stacked to display in a row */
 }
+
 @media (min-width: 40em) {
-  .responsive-nav__item {
-    display: inline-block;
-    border-top: none;
-  }
+    .responsive-nav__item {
+        display: inline-block;
+        border-top: none;
+    }
 }
 
 /**
@@ -131,21 +162,22 @@ MOBILE FIRST RESPONSIVE NAV
  */
 /* Reusable silent class so we can share styles with the toggle */
 .responsive-nav__link, .responsive-nav__toggle {
-  color: #fff;
-  display: block;
-  white-space: nowrap;
-  padding-right: 14px;
-  padding-left: 14px;
-  line-height: 44px;
+    color: #fff;
+    display: block;
+    white-space: nowrap;
+    padding-right: 14px;
+    padding-left: 14px;
+    line-height: 44px;
 }
 
 .responsive-nav__link {
-  /* Background now gone so change link colour */
+    /* Background now gone so change link colour */
 }
+
 @media (min-width: 40em) {
-  .responsive-nav__link {
-    color: #f43059;
-  }
+    .responsive-nav__link {
+        color: #f43059;
+    }
 }
 
 /**
@@ -158,255 +190,383 @@ MOBILE FIRST RESPONSIVE NAV
  * [2] So toggle button width is at least the hit-area size, but can grow.
  */
 .responsive-nav__toggle {
-  display: inline-block;
-  background: #f43059;
-  min-width: 44px;
-  border-radius: 3px;
-  box-sizing: border-box;
-  /* Content for toggle button */
-  /* Menu open styles */
-  /* Now hide the toggle button as menu show by default */
+    display: inline-block;
+    background: #f43059;
+    min-width: 44px;
+    border-radius: 3px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    /* Content for toggle button */
+    /* Menu open styles */
+    /* Now hide the toggle button as menu show by default */
 }
-.responsive-nav__toggle:before {
-  content: "☰";
-  font-size: 16px;
-  line-height: 1;
-}
-.responsive-nav__toggle:hover {
-  text-decoration: none;
-}
+
+    .responsive-nav__toggle:before {
+        content: "☰";
+        font-size: 16px;
+        line-height: 1;
+    }
+
+    .responsive-nav__toggle:hover {
+        text-decoration: none;
+    }
+
 .responsive-nav--open .responsive-nav__toggle {
-  width: 100%;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-  /* Change hamburger icon to a close icon */
+    width: 100%;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    /* Change hamburger icon to a close icon */
 }
-.responsive-nav--open .responsive-nav__toggle:before {
-  content: "✕";
-}
+
+    .responsive-nav--open .responsive-nav__toggle:before {
+        content: "✕";
+    }
+
 @media (min-width: 40em) {
-  .responsive-nav__toggle {
-    display: none;
-  }
+    .responsive-nav__toggle {
+        display: none;
+    }
 }
 
 /**
  * Housekeeping. Nothing to see here...
  */
 html {
-  font-size: 16px;
-  line-height: 1.5;
-  font-family: sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    font-family: sans-serif;
 }
 
 a {
-  text-decoration: none;
+    text-decoration: none;
 }
-a:hover {
-  text-decoration: underline;
-}
-tajm-app > div{
-    padding:0.25rem;
-}
-latest-tasks {
-        width:100%;
-    max-width:40rem;
-    overflow-x:hidden;
-    overflow-y:scroll;
-}
-tasktime-listitem {
-    display:flex;
-    flex-flow:row nowrap;
-    border-bottom:1px solid white;
-    height:3.5rem;
-}
-    tasktime-listitem .left-column {
-        display:flex;
-        flex-flow:column;
-        flex-grow:1;
-    }
-    tasktime-listitem .right-column {
-        display:flex;
-        flex-flow:column;
-        flex-grow:1;
-        text-align:right;
-        padding-right:0.5rem;
-    }
-    tasktime-listitem div {
-        overflow:hidden;
-        white-space:nowrap;
-        padding:0.25rem 0.1rem;
-    }
-        tasktime-listitem div#customerName {
-            width:8rem;
-        }
-        tasktime-listitem div:nth-child(4) {
-            text-align:right;
-        }
-select, textarea {
-    min-width:10rem;
-    max-width:24rem;
-    width:100%;
-    margin:0.25rem;
-}
-current-tasks {
-        width:100%;
-    max-width:40rem;
-    display:flex;
-    flex-flow:column;
-    /* box-shadow:  0px 0px 12px 12px rgba(0,255,0,0.7), inset 0px 0px 24px 24px rgba(0,255,0,0.5); */
-    margin-bottom:1.5rem;
 
+    a:hover {
+        text-decoration: underline;
+    }
+
+tajm-app > div {
+    padding: 0.25rem;
 }
-tasktime-active {
-    width:100%;
-    max-width:40rem;
-    display:flex;
-    flex-flow:row;
-    justify-content:space-between;
-    border-bottom:1px solid silver;
-    height:5rem;
-    border:1px solid silver;
+
+latest-tasks {
+    width: 100%;
+    max-width: 40rem;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
-    tasktime-active div:nth-child(2) {
-        width:15rem;
+
+tasktime-listitem {
+    display: flex;
+    -ms-flex-flow: row nowrap;
+    -webkit-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    border-bottom: 1px solid white;
+    height: 3.5rem;
+}
+
+    tasktime-listitem .left-column {
+        display: flex;
+        -ms-flex-flow: column;
+        -webkit-flex-flow: column;
+        flex-flow: column;
+        flex-grow: 1;
     }
-    tasktime-active div:nth-child(1) {
-        width:15rem;
+
+    tasktime-listitem .right-column {
+        display: flex;
+        -ms-flex-flow: column;
+        -webkit-flex-flow: column;
+        flex-flow: column;
+        flex-grow: 1;
+        text-align: right;
+        padding-right: 0.5rem;
     }
-    tasktime-active div:nth-child(1) div {   
-        white-space:nowrap;
-        overflow:hidden;
-        text-overflow:ellipsis;
-        margin:0.25rem 0.25rem 0 0.25rem;
-        width:100%;
+
+    tasktime-listitem div {
+        overflow: hidden;
+        white-space: nowrap;
+        padding: 0.25rem 0.1rem;
     }
-        
-        tasktime-active div:nth-child(3), tasktime-active div:nth-child(4) {
-            text-align:right;
-            width:15rem;
+
+        tasktime-listitem div#customerName {
+            width: 8rem;
         }
+
+        tasktime-listitem div:nth-child(4) {
+            text-align: right;
+        }
+
+select, textarea {
+    min-width: 10rem;
+    max-width: 24rem;
+    width: 100%;
+    margin: 0.25rem;
+}
+
+current-tasks {
+    width: 100%;
+    max-width: 40rem;
+    display: flex;
+    -ms-flex-flow: column;
+    -webkit-flex-flow: column;
+    flex-flow: column;
+    /* box-shadow:  0px 0px 12px 12px rgba(0,255,0,0.7), inset 0px 0px 24px 24px rgba(0,255,0,0.5); */
+    margin-bottom: 1.5rem;
+}
+
+tasktime-active {
+    width: 100%;
+    max-width: 40rem;
+    display: flex;
+    -ms-flex-flow: row;
+    -webkit-flex-flow: row;
+    flex-flow: row;
+    justify-content: space-between;
+    border-bottom: 1px solid silver;
+    height: 5rem;
+    border: 1px solid silver;
+}
+
+    tasktime-active div:nth-child(2) {
+        width: 15rem;
+    }
+
+    tasktime-active div:nth-child(1) {
+        width: 15rem;
+    }
+
+        tasktime-active div:nth-child(1) div {
+            white-space: nowrap;
+            overflow: hidden;
+            -ms-text-overflow: ellipsis;
+            -o-text-overflow: ellipsis;
+            text-overflow: ellipsis;
+            margin: 0.25rem 0.25rem 0 0.25rem;
+            width: 100%;
+        }
+
+    tasktime-active div:nth-child(3), tasktime-active div:nth-child(4) {
+        text-align: right;
+        width: 15rem;
+    }
+
 add-tasktime {
-    width:calc(100% - 6px);
-    display:inline-block;
-    position:absolute;
-    max-width:30rem;
-    padding:1rem;
-    top:4.5rem;
-    left:calc( 50% - ((100% - 6px) / 2) );
-    margin:0 auto;
-    border:1px solid silver;
-    border-radius:0.5rem;
-    box-shadow:4px 4px 12px 14px rgba(0,0,0,0.3);
-    
+    width: calc(100% - 6px);
+    display: inline-block;
+    position: absolute;
+    max-width: 30rem;
+    padding: 1rem;
+    top: 4.5rem;
+    left: calc( 50% - ((100% - 6px) / 2) );
+    margin: 0 auto;
+    border: 1px solid silver;
+    border-radius: 0.5rem;
+    box-shadow: 4px 4px 12px 14px rgba(0,0,0,0.3);
 }
+
 side-menu {
-    display:flex;
-    width:100%;
-    max-width:40rem;
-    margin:1rem auto;
-    background:rgba(255,255,255,0.45);
-    justify-content:space-between;
+    display: flex;
+    width: 100%;
+    max-width: 40rem;
+    margin: 0.5rem auto;
+    margin-top:0;
+    /* background: rgba(255,255, 255, 0.8); */
+    background: rgba(0,0,0,0.65);
+    justify-content: space-between;
 }
+
 .side-menu-icon {
-    fill:rgba(219, 83, 43, 0.8);
-    height:3.5rem;
-    padding:0.25rem;
-    width:3.5rem;
+    /*fill: rgba(219, 83, 43, 0.8);*/
+    fill:#fa5606;
+    height: 3.5rem;
+    padding: 0.25rem;
+    width: 3.5rem;
 }
+
 customer-list {
     display: flex;
+    -ms-flex-flow: column;
+    -webkit-flex-flow: column;
     flex-flow: column;
     color: black;
     width: 100%;
-    
     max-width: 40rem;
     margin: 0 auto;
 }
+
 customer-listitem {
-    display:flex;
-    position:relative;
-    height:5rem;
-    background: rgba(255,255,255,0.85);
+    display: flex;
+    position: relative;
+    height: 5rem;
+    background: rgba(0,0,0,0.65);
+    color:rgb(233,233,233);
     box-shadow: 0.1rem 0.1rem 0.25rem 0.1rem rgba(0,0,0,0.4);
-    justify-content:space-between;
-    align-items:center;
-    padding:0.25rem;
-    width:100%;
-    margin:0.25rem auto;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.25rem;
+    width: 100%;
+    margin: 0.25rem auto;
 }
+
     customer-listitem:last-child {
-        margin-bottom:0.5rem;
+        margin-bottom: 0.5rem;
     }
 
     customer-listitem > div {
-        display:flex;
-        flex-flow:column;
-        max-height:5rem;
+        display: flex;
+        -ms-flex-flow: column;
+        -webkit-flex-flow: column;
+        flex-flow: column;
+        max-height: 5rem;
     }
+
         customer-listitem > div > p {
-            line-height:1rem;
-            font-size:0.9rem;
-            margin:0;
-            padding:0;
+            line-height: 1rem;
+            font-size: 0.9rem;
+            margin: 0;
+            padding: 0;
         }
 
-        customer-listitem div > b {
-            box-shadow:inset 0rem 0rem 0.1rem 0.2rem rgba(0,0,0,0.2), 0.1rem 0.1rem 0.15rem 0.1rem rgba(0,0,0,0.3);
-            background:rgba(255,255,255,0.8);
-            margin:0.25rem;
-            padding:0.45rem;
-            border-radius:1rem;
-        }
+    customer-listitem div > b {
+        box-shadow: inset 0rem 0rem 0.1rem 0.2rem rgba(0,0,0,0.2), 0.1rem 0.1rem 0.15rem 0.1rem rgba(0,0,0,0.3);
+        background: rgba(0,0,0,0.65);
+        margin: 0.25rem;
+        padding: 0.45rem;
+        border-radius: 1rem;
+    }
+
     customer-listitem > worktask-picker {
-        display:none;
-        background:rgba(255,255,255,0.87);
-        padding:1rem;
-        border-radius:0.25rem;
+        display: none;
+        background: rgba(0,0,0,0.65);
+        padding: 1rem;
+        border-radius: 0.25rem;
+
     }
+
         customer-listitem > worktask-picker.active {
-            display:inline-block;
-            position:absolute;
-            left:2rem;
-            top:1.5rem;
-            z-index:2;
+            display: inline-block;
+            position: absolute;
+            left: 2rem;
+            top: 1.5rem;
+            z-index: 2;
         }
+
     customer-listitem > form {
-        display:none;
-        background:rgba(255,255,255,0.87);
-        padding:1rem;
-        border-radius:0.25rem;
+        display: none;
+        background: rgba(0,0,0,0.65);
+        padding: 1rem;
+        border-radius: 0.25rem;
     }
-        customer-listitem > form.active {
-            display:inline-block;
-            position:absolute;
-            left:2rem;
-            top:1.5rem;
-            z-index:2;
+        customer-listitem > form > textarea {
+            background: rgba(0,0,0,0.65);
+            color:rgb(233,233,233);
+            border:1px solid rgba(255,255,255,0.2);
         }
+        customer-listitem > form > button {
+            color:rgb(233,233,233);
+            background: rgba(0,0,0,0.65);
+            border:1px solid rgba(255,255,255,0.2);
+            border-radius:0.5rem;
+            padding:0.25rem 0.5rem;
+        }
+        customer-listitem > form.active {
+            display: inline-block;
+            position: absolute;
+            left: 2rem;
+            top: 1.5rem;
+            z-index: 2;
+        }
+
+@-moz-keyframes pulsate {
+    0% {
+        -webkit-transform: scale(0.95, 0.95);
+        opacity: 0.6;
+    }
+
+    50% {
+        -webkit-transform: scale(1.05, 1.05);
+        opacity: 1;
+    }
+
+    100% {
+        -webkit-transform: scale(0.95, 0.95);
+        opacity: 0.6;
+    }
+}
+
+@-webkit-keyframes pulsate {
+    0% {
+        -webkit-transform: scale(0.95, 0.95);
+        opacity: 0.6;
+    }
+
+    50% {
+        -webkit-transform: scale(1.05, 1.05);
+        opacity: 1;
+    }
+
+    100% {
+        -webkit-transform: scale(0.95, 0.95);
+        opacity: 0.6;
+    }
+}
+
 @keyframes pulsate {
-    0% {-webkit-transform: scale(0.95, 0.95); opacity: 0.6;}
-    50% {-webkit-transform: scale(1.05, 1.05); opacity: 1;}
-    100% {-webkit-transform: scale(0.95, 0.95); opacity: 0.6;}
+    0% {
+        -webkit-transform: scale(0.95, 0.95);
+        opacity: 0.6;
+    }
+
+    50% {
+        -webkit-transform: scale(1.05, 1.05);
+        opacity: 1;
+    }
+
+    100% {
+        -webkit-transform: scale(0.95, 0.95);
+        opacity: 0.6;
+    }
 }
 
 @keyframes spinSlow {
     0% {
-        transform:scale(1);
+        -moz-transform: scale(1);
+        -ms-transform: scale(1);
+        -o-transform: scale(1);
+        -webkit-transform: scale(1);
+        transform: scale(1);
     }
 
-    100%{
-        transform:rotateZ(1);
-        
+    100% {
+        -moz-transform: rotateZ(1);
+        -ms-transform: rotateZ(1);
+        -o-transform: rotateZ(1);
+        -webkit-transform: rotateZ(1);
+        transform: rotateZ(1);
     }
 }
-.spinSlow svg{
+
+.spinSlow svg {
+    -moz-animation-name: pulsate;
+    -o-animation-name: pulsate;
+    -webkit-animation-name: pulsate;
     animation-name: pulsate;
-    animation-iteration-count:infinite;
-    animation-duration:3s;
-    animation-timing-function:linear;
+    -moz-animation-iteration-count: infinite;
+    -o-animation-iteration-count: infinite;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    -moz-animation-duration: 3s;
+    -o-animation-duration: 3s;
+    -webkit-animation-duration: 3s;
+    animation-duration: 3s;
+    -moz-animation-timing-function: linear;
+    -o-animation-timing-function: linear;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
 }
-taskIcon.active {
-    fill:red;
 
+taskIcon.active {
+    fill: red;
 }
