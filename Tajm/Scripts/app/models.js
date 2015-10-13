@@ -38,7 +38,7 @@
         for (var x = 0; x < self.taskTimes.length; x++) {
             curTaskTime = self.taskTimes[x];
             //Check that there is an end timestamp to this one. 
-            if (curTaskTime.end && moment(curTaskTime.end).format('yyyyMM') == moment().format('yyyyMM')) {
+            if (curTaskTime.end && moment(curTaskTime.end).format('YYYYMM') == moment().format('YYYYMM')) {
                 retVal += moment(curTaskTime.end).unix() - moment(curTaskTime.start).unix();
             }
         }
@@ -49,7 +49,7 @@
         for (var x = 0; x < self.taskTimes.length; x++) {
             curTaskTime = self.taskTimes[x];
             //Check that there is an end timestamp to this one. 
-            if (curTaskTime.end && moment(curTaskTime.end).format('yyyyMMdd') == moment().format('yyyyMMdd')) {
+            if (curTaskTime.end && moment(curTaskTime.end).format('YYYYMMDD') == moment().format('YYYYMMDD')) {
                 retVal += moment(curTaskTime.end).unix() - moment(curTaskTime.start).unix();
             }
         }
@@ -84,6 +84,7 @@ var TaskTime = function (opts) {
     this.description = opts.description || opts.Description;
     this.start = opts.start ? new Date(opts.start).toISOString() : null || opts.Start ? new Date(opts.Start).toISOString() : null;
     this.end = opts.end ? new Date(opts.end).toISOString() : null || opts.End ? new Date(opts.End).toISOString() : null;
+    this.duration = moment.duration(moment(this.end).unix() - moment(this.start).unix(), "seconds").format('hh:mm', { forceLength: true });
     this.customer = function () {
         return store.Customers.getItem(self.customerId, function (cust) {
             return cust;

@@ -19,11 +19,34 @@
           $.post('/account/LogOff');
           document.location.href = '/account/login';
       }
-      this.addTaskTime =  function(e){
+      self.preventMeFromClosing = function (e) {
+          console.log('no propagation');
+          e.stopPropagation();
+          return false;
+      }
+      self.hideTaskForm = function (e,forceHide) {
+          console.log(e);
+          
+          if (!forceHide && e.target.tagName === 'TASKTIME') {
+              return false;
+          }
+          
+          document.getElementById('addTaskTimeForm').style.display = 'none';
+          document.getElementById('addTaskTimeForm').removeEventListener('click', self.preventMeFromClosing);
+          document.removeEventListener('click', self.hideTaskForm);
+      };
+      this.addTaskTime = function (e) {
+
           var theForm = document.getElementById('addTaskTimeForm');
+
+          
           console.log(theForm.style.display);
           if (theForm.style.display == "none") {
               theForm.style.display = 'block';
+              setTimeout(function () {
+                  document.addEventListener('click', self.hideTaskForm);
+                  theForm.addEventListener('click', self.preventMeFromClosing);
+              }, 250);
               console.log(e);
               if (e.target.tagName == 'svg' || e.target.tagName == 'path') {
                   theForm.style.left = e.target.offsetParent.offsetLeft + 'px';
@@ -32,7 +55,7 @@
               }
               
           } else {
-              theForm.style.display = 'none';
+              self.hideTaskForm(e,true);
           }
       };
     </script>

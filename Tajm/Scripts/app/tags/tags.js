@@ -7,6 +7,7 @@ riot.tag('add-tasktime', '<employee-dropdown name="EmployeeId" __selected="{task
             ];
             this.on('mount', function () {
                 helpers.initPageTag(self);
+                self.tasktime.employeeId = window.user.id;
             });
             //this.tasktime = opts.tasktime || new TaskTime();
             this.CustomerId._tag.on('selection_changed', function (newVal) {
@@ -45,8 +46,19 @@ riot.tag('add-tasktime', '<employee-dropdown name="EmployeeId" __selected="{task
                 console.log('try to add something');
 
                 store.TaskTimes.addItem(self.tasktime, function (newTask) {
-                    self.tasktime = new TaskTime(newTask);
+                    store.Customers.store[newTask.customerId].updateTaskTimes();
+                    self.tasktime = new TaskTime({});
                     self.tasktime.id = 0;
+
+                    self.tasktime.customerId = store.Customers.storeArray[0].id;
+                    self.tasktime.employeeId = store.Employees.storeArray[0].id;
+                    self.tasktime.taskId = store.WorkTasks.storeArray[0].id;
+
+                    self.description.value = '';
+                    self.duration.value = '';
+                    self.workDate.value = '';
+                    self.update();
+                    self.trigger('TASK_ADDED');
                 });
             }
 
@@ -65,7 +77,7 @@ riot.tag('add-tasktime', '<employee-dropdown name="EmployeeId" __selected="{task
         });
 
     
-});riot.tag('customer-dropdown', '<select name="CustomerId" onchange="{changeSelected}"><option each="{customerList}" id="{id}" __selected="{id==selected}">{name}</option></select>', function(opts) {
+});riot.tag('customer-dropdown', '<select name="CustomerId" onchange="{changeSelected}"><option each="{customerList}" id="{id}" __selected="{id==parent.selected}">{name}</option></select>', function(opts) {
         var self = this;
         this.name = opts.name || 'CustomerId';
         this.customerList = [];
@@ -77,10 +89,16 @@ riot.tag('add-tasktime', '<employee-dropdown name="EmployeeId" __selected="{task
         }
         this.on('mount', function () {
             self.customerList = store.Customers.storeArray;
+            if (!self.selected) { self.selected = self.customerList[0].id }
+            self.trigger('selection_changed', self.selected);
             self.update();
+        });
+        self.on('update', function () {
+            if (self.selected != opts.selected) { self.selected = opts.selected }
         });
         store.Customers.on('collection_changed', function () {
             self.customerList = store.Customers.storeArray;
+            if (!self.selected) { self.selected = self.customerList[0].id }
             self.trigger('selection_changed', self.customerList[0].id);
             self.update();
         });
@@ -90,24 +108,37 @@ riot.tag('add-tasktime', '<employee-dropdown name="EmployeeId" __selected="{task
     var self = this;
     self.customers = [];
     self.on('mount', function () {
-    helpers.initPageTag(self);
-    self.customers = store.Customers.storeArray;
-    self.update();
+        helpers.initPageTag(self);
+        self.customers = store.Customers.storeArray.sort(function (a,b) {
+            if (a.totalTimeMonth() < b.totalTimeMonth()) { return 1 }
+            if (a.totalTimeMonth() > b.totalTimeMonth()) { return -1 }
+            return 0;
+        });
+        self.update();
     });
     store.Customers.on('collection_changed', function(){
-    self.customers = store.Customers.storeArray;
-    self.update();
+        self.customers = store.Customers.storeArray;
+        self.update();
+    });
+    store.TaskTimes.on('collection_changed', function () {
+        self.customers = store.Customers.storeArray.sort(function (a, b) {
+            if (a.totalTimeMonth() < b.totalTimeMonth()) { return 1 }
+            if (a.totalTimeMonth() > b.totalTimeMonth()) { return -1 }
+            return 0;
+        });
+        self.update();
     });
     self.toggleTimer = function(){
-    console.log('toggleTimer');
+        console.log('toggleTimer');
     }
   
-});riot.tag('customer-listitem', '<div><div style="display:flex;flex-flow:row;"><b onclick="{startTimer}" show="{!customer.activeTask}" medium-icon="" entypo-icon="Play" style="fill:green"></b><b onclick="{stopTimer}" show="{customer.activeTask}" class="spinSlow" medium-icon="" entypo-icon="Stop" style="fill:rgba(255,0,0,0.87);"></b><b onclick="{callTo}" medium-icon="" entypo-icon="Phone" style="fill:#fa5606;"></b></div><div style="display:flex;flex-flow:row;"><b onclick="{showInfo}" medium-icon="" entypo-icon="Info" style="fill:#fa5606;"></b><b onclick="{showInfo}" medium-icon="" entypo-icon="Credit" style="fill:#fa5606;"></b></div></div><div><h4>{customer.name}</h4><p><label>Idag</label><span style="float:right">{customer.totalTimeDay()}</span></p><p><label>{moment().format(\'MMMM\')}</label><span style="float:right;">{customer.totalTimeMonth()}</span></p></div><worktask-picker name="chooseTasker" class="{active: chooseTask}"></worktask-picker><form class="{active: addDescription}" onsubmit="{updateTask}"><textarea cols="50" rows="4" name="taskDescription" onkeydown="{keyDownDescription}"></textarea><button >Spara</button></form>', function(opts) {
+});riot.tag('customer-listitem', '<div><div style="display:flex;flex-flow:row;"><b onclick="{startTimer}" show="{!customer.activeTask}" medium-icon="" entypo-icon="Play" style="fill:green"></b><b onclick="{stopTimer}" show="{customer.activeTask}" class="spinSlow" medium-icon="" entypo-icon="Stop" style="fill:rgba(255,0,0,0.87);"></b><b onclick="{callTo}" medium-icon="" entypo-icon="Phone" style="fill:#fa5606;"></b></div><div style="display:flex;flex-flow:row;"><b onclick="{toggleInfo}" medium-icon="" entypo-icon="Info" style="fill:#fa5606;"></b><b onclick="{toggleInfo}" medium-icon="" entypo-icon="Credit" style="fill:#fa5606;"></b></div></div><div><h4>{customer.name}</h4><p><label>Idag</label><span style="float:right">{customer.totalTimeDay()}</span></p><p><label>{moment().format(\'MMMM\')}</label><span style="float:right;">{customer.totalTimeMonth()}</span></p></div><div if="{showInfo}" onclick="{toggleInfo}"style="padding:1rem;z-index:3;position:absolute;top:4rem;left:2rem;height:30rem;max-height:30rem;overflow:scroll;display:block;background:black;border-radius:1rem;border:1px solid white;"><h3>{customer.name}</h3><div each="{task in customer.taskTimes}" style="margin-bottom:0.5rem;" > {moment(task.start).format(\'YYYY-MM-DD\')} <strong>{task.duration}</strong><br > {task.description}<hr ></div></div><worktask-picker name="chooseTasker" class="{active: chooseTask}"></worktask-picker><form class="{active: addDescription}" onsubmit="{updateTask}"><textarea cols="50" rows="4" name="taskDescription" onkeydown="{keyDownDescription}"></textarea><button >Spara</button></form>', function(opts) {
         var self = this;
         self.customer = opts.customer;
         self.currentTaskId = null;
         self.addDescription = false;
         self.chooseTask = false;
+        self.showInfo = false;
         self.taskRegisterInProgress = false; //Prevent multiple requests for the same action.
         self.on('mount', function () {
             helpers.initPageTag(self);
@@ -129,12 +160,29 @@ riot.tag('add-tasktime', '<employee-dropdown name="EmployeeId" __selected="{task
         });
 
 
-        self.showInfo = function () {
-
+        self.toggleInfo = function () {
+            self.showInfo = !self.showInfo;
         };
-        self.startTimer = function () {
+        self.startTimer = function (e) {
+            if (self.customer.id == 7) { //arbetstid
+                self.currentTaskId = 11;
+                self.addTask();
+                return;
+            }
             self.chooseTask = true;
+            self.update();
+            setTimeout(function () {
+                document.addEventListener('click', self.hideTaskChooser);
+            }, 250);
+            
         };
+        self.hideTaskChooser = function (e) {
+            console.log(e);
+            self.chooseTask = false;
+            self.update();
+            document.removeEventListener('click', self.hideTaskChooser);
+        };
+
         self.stopTimer = function () {
             self.addDescription = true;
         };
@@ -193,24 +241,31 @@ riot.tag('add-tasktime', '<employee-dropdown name="EmployeeId" __selected="{task
             });
         };
     
-});riot.tag('employee-dropdown', '<select name="EmployeeId" onchange="{changeSelected}"><option each="{employeeList}" id="{id}" __selected="{id==selected}">{firstname} {lastname}</option></select>', function(opts) {
+});riot.tag('employee-dropdown', '<select name="EmployeeId" onchange="{changeSelected}"><option each="{employeeList}" id="{id}" __selected="{id==parent.selected}">{firstname} {lastname}</option></select>', function(opts) {
       var self = this;
       this.name = opts.name || 'EmployeeId';
       this.employeeList = [];
-      this.selected = opts.selected;
+      this.selected = opts.selected ;
       this.changeSelected = function (e) {
-      console.log(e.target[e.target.selectedIndex].id);
-      this.selected = e.target[e.target.selectedIndex].id;
-      this.trigger('selection_changed', e.target[e.target.selectedIndex].id);
+        console.log(e.target[e.target.selectedIndex].id);
+        this.selected = e.target[e.target.selectedIndex].id;
+        this.trigger('selection_changed', e.target[e.target.selectedIndex].id);
       }
       this.on('mount', function () {
-        self.employeeList = store.Employees.storeArray;
-        self.update();
+          console.log('selected employee');
+          console.log(self.selected);
+          self.employeeList = store.Employees.storeArray;
+          if (!self.selected) { self.selected = self.employeeList[0].id }
+          console.log('now selected employee');
+          console.log(self.selected);
+          self.update();
+          this.trigger('selection_changed', self.selected);
       });
       store.Employees.on('collection_changed', function () {
-      self.employeeList = store.Employees.storeArray;
-      self.trigger('selection_changed', self.employeeList[0].id);
-      self.update();
+        self.employeeList = store.Employees.storeArray;
+        if (!self.selected) { self.selected = self.employeeList[0].id }
+        self.trigger('selection_changed', self.selected);
+        self.update();
       });
 
     
@@ -256,11 +311,34 @@ riot.tag('latest-tasks', '<tasktime-listitem each="{latestTasks}" tasktime="{thi
           $.post('/account/LogOff');
           document.location.href = '/account/login';
       }
-      this.addTaskTime =  function(e){
+      self.preventMeFromClosing = function (e) {
+          console.log('no propagation');
+          e.stopPropagation();
+          return false;
+      }
+      self.hideTaskForm = function (e,forceHide) {
+          console.log(e);
+          
+          if (!forceHide && e.target.tagName === 'TASKTIME') {
+              return false;
+          }
+          
+          document.getElementById('addTaskTimeForm').style.display = 'none';
+          document.getElementById('addTaskTimeForm').removeEventListener('click', self.preventMeFromClosing);
+          document.removeEventListener('click', self.hideTaskForm);
+      };
+      this.addTaskTime = function (e) {
+
           var theForm = document.getElementById('addTaskTimeForm');
+
+          
           console.log(theForm.style.display);
           if (theForm.style.display == "none") {
               theForm.style.display = 'block';
+              setTimeout(function () {
+                  document.addEventListener('click', self.hideTaskForm);
+                  theForm.addEventListener('click', self.preventMeFromClosing);
+              }, 250);
               console.log(e);
               if (e.target.tagName == 'svg' || e.target.tagName == 'path') {
                   theForm.style.left = e.target.offsetParent.offsetLeft + 'px';
@@ -269,16 +347,21 @@ riot.tag('latest-tasks', '<tasktime-listitem each="{latestTasks}" tasktime="{thi
               }
               
           } else {
-              theForm.style.display = 'none';
+              self.hideTaskForm(e,true);
           }
       };
     
-});riot.tag('tajm-app', '<div fit style="display:flex;flex-flow:column;"><side-menu></side-menu><customer-list></customer-list><add-tasktime id="addTaskTimeForm" style="margin:0 auto;display:none;background:rgba(0,0,0,0.7)"></add-tasktime></div>', function(opts) {
+});riot.tag('tajm-app', '<div fit style="display:flex;flex-flow:column;"><side-menu></side-menu><customer-list></customer-list><add-tasktime name="addTaskTimeForm" id="addTaskTimeForm" style="margin:0 auto;display:none;background:rgba(0,0,0,0.7)"></add-tasktime></div>', function(opts) {
+    var self = this;
     var currentEmployee = store.Employees.storeArray.find(function(_e){
     return _e.userId == loggedInUserId;
     });
     console.log(loggedInUserId);
-    console.log(currentEmployee)
+    console.log(currentEmployee);
+
+    self.addTaskTimeForm._tag.on('TASK_ADDED', function(){
+      self.addTaskTimeForm.style.display = 'none';
+    });
   
 });riot.tag('tasktime-active', '<div><b onclick="{stopTimer}" standard-icon="" entypo-icon="Stopwatch" style="fill:rgba(255,0,0,0.87);"></b></div><div>{moment.duration(moment().unix() - moment(tasktime.start).unix(), "seconds").format(\'hh:mm:ss\',{ forceLength: true})}</div><div style="display:flex;flex-flow:column"><div>{tasktime.customer.name}</div><div>{tasktime.task.name}</div></div>', function(opts) {
       var self = this;
@@ -327,7 +410,7 @@ riot.tag('tasktime-listitem', '<div class="left-column"><div id="customerName">{
         
 });
 
-riot.tag('worktask-dropdown', '<select name="{name}" onchange="{changeSelected}"><option each="{worktaskList}" id="{id}" __selected="{id==selected}">{name} ({price}:-)</option></select>', function(opts) {
+riot.tag('worktask-dropdown', '<select name="{name}" onchange="{changeSelected}"><option each="{worktaskList}" id="{id}" __selected="{id==parent.selected}">{name} ({price}:-)</option></select>', function(opts) {
         var self = this;
         this.name = opts.name || 'WorkTaskId';
         this.worktaskList = [];
@@ -339,16 +422,22 @@ riot.tag('worktask-dropdown', '<select name="{name}" onchange="{changeSelected}"
         }
         this.on('mount', function () {
             self.worktaskList = store.WorkTasks.storeArray;
+            if (!self.selected) { self.selected = self.worktaskList[0].id; }
+            self.trigger('selection_changed', self.selected);
             self.update();
+        });
+        this.on('update', function () {
+            if (self.selected != opts.selected) {self.selected = opts.selected}
         });
         store.WorkTasks.on('collection_changed', function () {
             self.worktaskList = store.WorkTasks.storeArray;
+            if (!self.selected) { self.selected = self.worktaskList[0].id; }
             self.trigger('selection_changed', self.worktaskList[0].id);
             self.update();
         });
 
     
-});riot.tag('worktask-picker', '<div each="{worktaskList}" id="{id}" onclick="{setSelected}">{name} ({price}:-)</div>', function(opts) {
+});riot.tag('worktask-picker', '<div each="{worktaskList}" id="{id}" if="{id != 11}" onclick="{setSelected}">{name} ({price}:-)</div>', function(opts) {
         var self = this;
         this.name = opts.name || 'WorkTaskId';
         this.worktaskList = [];

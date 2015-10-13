@@ -1,5 +1,5 @@
 ﻿<worktask-picker>
-    <div each="{ worktaskList }" id="{ id }" onclick="{ setSelected }">{ name } ({ price }:-)</div>
+    <div each="{ worktaskList }" id="{ id }" if="{id != 11}" onclick="{ setSelected }">{ name } ({ price }:-)</div>
     <script type="text/javascript">
         var self = this;
         this.name = opts.name || 'WorkTaskId';

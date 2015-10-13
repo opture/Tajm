@@ -6,8 +6,8 @@
             <b onclick="{ callTo }" medium-icon="" entypo-icon="Phone" style="fill:#fa5606;"></b>
         </div>
         <div style="display:flex;flex-flow:row;">
-            <b onclick="{ showInfo }" medium-icon="" entypo-icon="Info" style="fill:#fa5606;"></b>
-            <b onclick="{ showInfo }" medium-icon="" entypo-icon="Credit" style="fill:#fa5606;"></b>
+            <b onclick="{ toggleInfo }" medium-icon="" entypo-icon="Info" style="fill:#fa5606;"></b>
+            <b onclick="{ toggleInfo }" medium-icon="" entypo-icon="Credit" style="fill:#fa5606;"></b>
         </div>
 
     </div>
@@ -17,8 +17,15 @@
         <p><label>{moment().format('MMMM')}</label><span style="float:right;">{customer.totalTimeMonth()}</span></p>
         
     </div>
-    
+    <div if="{showInfo}" onclick="{ toggleInfo}"style="padding:1rem;z-index:3;position:absolute;top:4rem;left:2rem;height:30rem;max-height:30rem;overflow:scroll;display:block;background:black;border-radius:1rem;border:1px solid white;">
+        <h3>{customer.name}</h3>
+        <div each="{task in customer.taskTimes}" style="margin-bottom:0.5rem;" >
+            {moment(task.start).format('YYYY-MM-DD')} <strong>{task.duration}</strong><br />
+            {task.description}<hr />
+        </div>
+    </div>
     <worktask-picker name="chooseTasker" class="{active: chooseTask}"></worktask-picker>
+    
     <form class="{active: addDescription}" onsubmit="{ updateTask }">
         <textarea cols="50" rows="4" name="taskDescription" onkeydown="{ keyDownDescription }"></textarea>
         <button >Spara</button>
@@ -29,6 +36,7 @@
         self.currentTaskId = null;
         self.addDescription = false;
         self.chooseTask = false;
+        self.showInfo = false;
         self.taskRegisterInProgress = false; //Prevent multiple requests for the same action.
         self.on('mount', function () {
             helpers.initPageTag(self);
@@ -50,12 +58,29 @@
         });
 
 
-        self.showInfo = function () {
-
+        self.toggleInfo = function () {
+            self.showInfo = !self.showInfo;
         };
-        self.startTimer = function () {
+        self.startTimer = function (e) {
+            if (self.customer.id == 7) { //arbetstid
+                self.currentTaskId = 11;
+                self.addTask();
+                return;
+            }
             self.chooseTask = true;
+            self.update();
+            setTimeout(function () {
+                document.addEventListener('click', self.hideTaskChooser);
+            }, 250);
+            
         };
+        self.hideTaskChooser = function (e) {
+            console.log(e);
+            self.chooseTask = false;
+            self.update();
+            document.removeEventListener('click', self.hideTaskChooser);
+        };
+
         self.stopTimer = function () {
             self.addDescription = true;
         };

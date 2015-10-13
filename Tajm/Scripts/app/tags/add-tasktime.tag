@@ -21,6 +21,7 @@
             ];
             this.on('mount', function () {
                 helpers.initPageTag(self);
+                self.tasktime.employeeId = window.user.id;
             });
             //this.tasktime = opts.tasktime || new TaskTime();
             this.CustomerId._tag.on('selection_changed', function (newVal) {
@@ -59,8 +60,19 @@
                 console.log('try to add something');
 
                 store.TaskTimes.addItem(self.tasktime, function (newTask) {
-                    self.tasktime = new TaskTime(newTask);
+                    store.Customers.store[newTask.customerId].updateTaskTimes();
+                    self.tasktime = new TaskTime({});
                     self.tasktime.id = 0;
+
+                    self.tasktime.customerId = store.Customers.storeArray[0].id;
+                    self.tasktime.employeeId = store.Employees.storeArray[0].id;
+                    self.tasktime.taskId = store.WorkTasks.storeArray[0].id;
+
+                    self.description.value = '';
+                    self.duration.value = '';
+                    self.workDate.value = '';
+                    self.update();
+                    self.trigger('TASK_ADDED');
                 });
             }
 
